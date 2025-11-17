@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="custom_external_layout" inherit_id="web.external_layout_standard">
-
-        <!-- REPLACE HEADER – Two logos + Amharic + Company name -->
+        <!-- REPLACE HEADER -->
         <xpath expr="//div[contains(@t-attf-class, 'header o_company_')]" position="replace">
-            <div class="header" style="padding: 20px 30px 15px; border-bottom: 3px solid #294a7f;">
+            <div class="header" style="padding: 20px 40px 15px; border-bottom: 3px solid #294a7f;">
                 <div style="display: flex; align-items: center; justify-content: space-between;">
                     <img t-att-src="'/sale_order_invoice_style/static/src/img/logo.png'" alt="Logo" style="height: 65px;"/>
                     <div style="text-align: center; flex: 1;">
@@ -20,12 +19,11 @@
 
         <!-- REPLACE FOOTER -->
         <xpath expr="//div[contains(@t-attf-class, 'footer o_company_')]" position="replace">
-            <div class="footer" style="border-top: 1px solid #294a7f; padding: 15px 30px; text-align: center; font-size: 10px; color: #555;">
+            <div class="footer" style="border-top: 1px solid #294a7f; padding: 15px 40px; text-align: center; font-size: 10px; color: #555;">
                 <p style="margin:4px 0;">ALEM GEBRE BUILDING 08 FLOOR GERJI MEBRATHAILE, ADDIS ABEBA, ETHIOPIA</p>
                 <p style="margin:4px 0;">TEL: +251911640551 / +251900505599</p>
-                <div style="margin-top: 8px;">Page: <span class="page"/> / <span class="topage"/></div>
+                <div style="margin-top:8px;">Page: <span class="page"/> / <span class="topage"/></div>
             </div>
         </xpath>
-
     </template>
 </odoo>
