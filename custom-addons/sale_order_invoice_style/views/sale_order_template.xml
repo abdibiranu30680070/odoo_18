@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="custom_invoice_document" inherit_id="account.report_invoice_document">
-        <xpath expr="//div[contains(@t-attf-class, 'page')] " position="replace">
+          <xpath expr="//div[contains(@t-attf-class, 'header o_company_')]" position="replace">
             <div class="page" style="font-family: Arial, sans-serif; max-width: 210mm; margin: 0 auto; padding: 20px; background: #fff;">
                 <!-- ==================== HEADER WITH LOGO LEFT & RIGHT ==================== -->
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 3px solid #294a7f; padding-bottom: 15px;">
