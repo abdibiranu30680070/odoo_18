@@ -3,13 +3,14 @@ set -e
 
 echo "=== Odoo Startup ==="
 echo "Database: $DATABASE_NAME @ $DATABASE_HOST:$DATABASE_PORT"
+echo "Custom addons path: /mnt/custom-addons"
 
 # First, initialize the database with base modules if not already initialized
 echo "Checking if database needs initialization..."
 if ! PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -c "SELECT 1 FROM ir_module_module LIMIT 1;" > /dev/null 2>&1; then
     echo "Database not initialized. Installing base modules..."
     odoo \
-        --addons-path=/usr/lib/python3/dist-packages/odoo/addons \
+        --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/mnt/custom-addons \
         --database="$DATABASE_NAME" \
         --db_host="$DATABASE_HOST" \
         --db_port="$DATABASE_PORT" \
@@ -19,14 +20,45 @@ if ! PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT
         --stop-after-init \
         --without-demo=all
     echo "✅ Base modules installed successfully"
+    
+    # Optionally install your custom module automatically
+    echo "Checking if custom module should be installed..."
+    if [ -f "/mnt/custom-addons/sale_order_invoice_style/__manifest__.py" ]; then
+        echo "Installing custom module: sale_order_invoice_style"
+        odoo \
+            --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/mnt/custom-addons \
+            --database="$DATABASE_NAME" \
+            --db_host="$DATABASE_HOST" \
+            --db_port="$DATABASE_PORT" \
+            --db_user="$DATABASE_USER" \
+            --db_password="$DATABASE_PASSWORD" \
+            -i sale_order_invoice_style \
+            --stop-after-init \
+            --without-demo=all
+        echo "✅ Custom module installed successfully"
+    fi
 else
     echo "✅ Database already initialized"
+    
+    # Update module list to include custom modules
+    echo "Updating module list to include custom addons..."
+    odoo \
+        --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/mnt/custom-addons \
+        --database="$DATABASE_NAME" \
+        --db_host="$DATABASE_HOST" \
+        --db_port="$DATABASE_PORT" \
+        --db_user="$DATABASE_USER" \
+        --db_password="$DATABASE_PASSWORD" \
+        --update=all \
+        --stop-after-init \
+        --without-demo=all
+    echo "✅ Module list updated with custom addons"
 fi
 
-# Now start Odoo normally
-echo "Starting Odoo server..."
+# Now start Odoo normally with custom addons
+echo "Starting Odoo server with custom addons..."
 exec odoo \
-    --addons-path=/usr/lib/python3/dist-packages/odoo/addons \
+    --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/mnt/custom-addons \
     --database="$DATABASE_NAME" \
     --db_host="$DATABASE_HOST" \
     --db_port="$DATABASE_PORT" \
