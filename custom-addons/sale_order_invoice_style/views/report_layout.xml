@@ -1,36 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="custom_external_layout" inherit_id="web.external_layout_standard" name="Custom SW Header">
-        <!-- Replace the header section -->
+    <template id="custom_external_layout" inherit_id="web.external_layout_standard">
+
+        <!-- REPLACE HEADER – Two logos + Amharic + Company name -->
         <xpath expr="//div[contains(@t-attf-class, 'header o_company_')]" position="replace">
-            <div class="header" style="min-height: 60px; padding: 0; margin-bottom: 10px;">
-                <!-- Left Logo -->
-                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Company Logo" style="max-height: 50px; float: left; margin-right: 15px;"/>
-                <img t-else="" t-att-src="'/sale_order_invoice_style/static/src/img/logo.png'" alt="SW Logo" style="max-height: 50px; float: left; margin-right: 15px;"/>
-                <!-- Center Title -->
-                <div style="text-align: center; margin: 0 60px;">
-                    <h4 style="margin: 0; font-size: 12px; color: #555; font-weight: normal; font-family: 'Noto Sans Ethiopic', Arial, sans-serif;">
-                        አስማች እና ላክ
-                    </h4>
-                    <h1 style="margin: 3px 0 0; font-size: 18px; font-weight: bold; color: #294a7f;">
-                        SIMPLE WAY GLOBAL IMPORT &amp; EXPORT
-                    </h1>
+            <div class="header" style="padding: 20px 30px 15px; border-bottom: 3px solid #294a7f;">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <img t-att-src="'/sale_order_invoice_style/static/src/img/logo.png'" alt="Logo" style="height: 65px;"/>
+                    <div style="text-align: center; flex: 1;">
+                        <h4 style="margin:0; font-size:14px; color:#555;">አስማች እና ላክ</h4>
+                        <h1 style="margin:5px 0 0; font-size:26px; font-weight:bold; color:#294a7f;">
+                            SIMPLE WAY GLOBAL IMPORT &amp; EXPORT
+                        </h1>
+                    </div>
+                    <img t-att-src="'/sale_order_invoice_style/static/src/img/logo.png'" alt="Logo" style="height: 65px;"/>
                 </div>
-                <!-- Right Logo -->
-                <img t-att-src="'/sale_order_invoice_style/static/src/img/logo.png'" alt="SW Logo" style="max-height: 50px; float: right; margin-left: 15px;"/>
-                <div style="clear: both; border-bottom: 3px solid #294a7f; margin-top: 10px;"/>
             </div>
         </xpath>
-        <!-- Replace the footer section -->
+
+        <!-- REPLACE FOOTER -->
         <xpath expr="//div[contains(@t-attf-class, 'footer o_company_')]" position="replace">
-            <div class="footer text-center" style="border-top: 1px solid #294a7f; padding-top: 8px; font-size: 9px; color: #555;">
-                <!-- Company Name and Page Number -->
-                <strong t-esc="company.name or 'SIMPLE WAY GLOBAL IMPORT &amp; EXPORT'"/>
-                <p style="margin: 2px 0;">Page: <span class="page"/> / <span class="topage"/></p>
-                <!-- Company Address -->
-                <p style="margin: 2px 0;">ALEM GEBRE BUILDING 08 FLOOR GERJI MEBRATHAILE, ADDIS ABEBA, ETHIOPIA</p>
-                <p style="margin: 2px 0;">TEL: +251911640551 / +251900505599</p>
+            <div class="footer" style="border-top: 1px solid #294a7f; padding: 15px 30px; text-align: center; font-size: 10px; color: #555;">
+                <p style="margin:4px 0;">ALEM GEBRE BUILDING 08 FLOOR GERJI MEBRATHAILE, ADDIS ABEBA, ETHIOPIA</p>
+                <p style="margin:4px 0;">TEL: +251911640551 / +251900505599</p>
+                <div style="margin-top: 8px;">Page: <span class="page"/> / <span class="topage"/></div>
             </div>
         </xpath>
+
     </template>
 </odoo>
