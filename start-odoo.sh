@@ -1,26 +1,30 @@
 #!/bin/bash
 set -e
 
-echo "=== Odoo Startup Diagnostic ==="
+echo "=== Odoo Startup ==="
 echo "Database: $DATABASE_NAME @ $DATABASE_HOST:$DATABASE_PORT"
 
-# Check if custom-addons directory exists and what's in it
-echo "Checking /mnt/custom-addons directory..."
-if [ -d "/mnt/custom-addons" ]; then
-    echo "✅ Directory exists"
-    echo "Contents of /mnt/custom-addons:"
-    ls -la /mnt/custom-addons/
-    
-    # Check if there are any Odoo modules
-    echo "Looking for Odoo modules..."
-    find /mnt/custom-addons -name "__manifest__.py" | head -10
+# First, initialize the database with base modules if not already initialized
+echo "Checking if database needs initialization..."
+if ! PGPASSWORD="$DATABASE_PASSWORD" psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -c "SELECT 1 FROM ir_module_module LIMIT 1;" > /dev/null 2>&1; then
+    echo "Database not initialized. Installing base modules..."
+    odoo \
+        --addons-path=/usr/lib/python3/dist-packages/odoo/addons \
+        --database="$DATABASE_NAME" \
+        --db_host="$DATABASE_HOST" \
+        --db_port="$DATABASE_PORT" \
+        --db_user="$DATABASE_USER" \
+        --db_password="$DATABASE_PASSWORD" \
+        -i base \
+        --stop-after-init \
+        --without-demo=all
+    echo "✅ Base modules installed successfully"
 else
-    echo "❌ Directory /mnt/custom-addons does not exist"
-    exit 1
+    echo "✅ Database already initialized"
 fi
 
-# For now, use only standard addons to get Odoo running
-echo "Starting Odoo with standard addons only..."
+# Now start Odoo normally
+echo "Starting Odoo server..."
 exec odoo \
     --addons-path=/usr/lib/python3/dist-packages/odoo/addons \
     --database="$DATABASE_NAME" \
