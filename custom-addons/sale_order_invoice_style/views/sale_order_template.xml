@@ -1,285 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="custom_invoice_document" inherit_id="account.report_invoice_document">
-          <xpath expr="//div[contains(@t-attf-class, 'header o_company_')]" position="replace">
-            <div class="page" style="font-family: Arial, sans-serif; max-width: 210mm; margin: 0 auto; padding: 20px; background: #fff;">
-                <!-- ==================== HEADER WITH LOGO LEFT & RIGHT ==================== -->
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 3px solid #294a7f; padding-bottom: 15px;">
-                    <!-- Left Logo -->
-                    <img t-att-src="'/sale_order_invoice_style/static/src/img/logo.png'" alt="SW Logo" style="height: 55px;"/>
-                    <!-- Center: Amharic + English Title -->
-                    <div style="text-align: center; flex: 1;">
-                        <h4 style="margin: 0; font-size: 13px; color: #555; font-weight: normal;">
-                            አስማች እና ላክ
-                        </h4>
-                        <h1 style="margin: 5px 0 0; font-size: 22px; font-weight: bold; color: #294a7f;">
-                            SIMPLE WAY GLOBAL IMPORT &amp; EXPORT
-                        </h1>
-                    </div>
-                    <!-- Right Logo -->
-                    <img t-att-src="'/sale_order_invoice_style/static/src/img/logo.png'" alt="SW Logo" style="height: 55px;"/>
-                </div>
-                <!-- ==================== INVOICE & COMPANY DETAILS ==================== -->
-                <div style="display: flex; justify-content: space-between; margin-bottom: 25px; font-size: 12px;">
+
+        <!-- Replace ONLY the .page content – header/footer come from external_layout -->
+        <xpath expr="//div[hasclass('page')]" position="replace">
+            <div class="page" style="padding: 30px 40px; font-family: Arial, sans-serif; font-size: 11.5px; line-height: 1.5;">
+
+                <!-- Invoice & Company Details (side by side) -->
+                <div style="display: flex; justify-content: space-between; margin: 30px 0 35px;">
                     <div>
-                        <!-- ==================== INVOICE TITLE ==================== -->
-                        <div style="text-align: center; margin: 20px 0;">
-                            <h4 style="font-weight: bold; color: #2c3e50; margin: 0;">Invoice</h4>
-                        </div>
-                        <t t-set="sale_order" t-value="o.env['sale.order'].search([('name', '=', o.invoice_origin)], limit=1)"/>
+                        <h4 style="text-align:center; color:#294a7f; font-weight:bold; margin-bottom:20px; font-size:16px;">Invoice</h4>
+                        <t t-set="so" t-value="o.env['sale.order'].search([('name','=',o.invoice_origin)], limit=1)"/>
                         <table>
-                            <tr>
-                                <td style="width: 110px;">
-                                    <strong>Invoice No:</strong>
-                                </td>
-                                <td>
-                                    <span t-field="o.name"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>Order No:</strong>
-                                </td>
-                                <td>
-                                    <span t-esc="o.invoice_origin or ''"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>Custom (PO):</strong>
-                                </td>
-                                <td>
-                                    <span t-esc="sale_order.client_order_ref or ''"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>Invoice Date:</strong>
-                                </td>
-                                <td>
-                                    <span t-field="o.invoice_date" t-options='{"widget":"date","format":"dd/MM/yyyy"}'/>
-                                </td>
-                            </tr>
-                            <tr t-if="o.invoice_date_due">
-                                <td>
-                                    <strong>Due Date:</strong>
-                                </td>
-                                <td>
-                                    <span t-field="o.invoice_date_due" t-options='{"widget":"date","format":"dd/MM/yyyy"}'/>
-                                </td>
-                            </tr>
+                            <tr><td style="width:120px;"><strong>Invoice No:</strong></td><td><span t-field="o.name"/></td></tr>
+                            <tr><td><strong>Order No:</strong></td><td><span t-esc="o.invoice_origin or '-'"/></td></tr>
+                            <tr><td><strong>Custom (PO):</strong></td><td><span t-esc="so.client_order_ref or '-'"/></td></tr>
+                            <tr><td><strong>Invoice Date:</strong></td><td><span t-field="o.invoice_date" t-options='{"widget":"date","format":"dd/MM/yyyy"}'/></td></tr>
+                            <tr t-if="o.invoice_date_due"><td><strong>Due Date:</strong></td><td><span t-field="o.invoice_date_due" t-options='{"widget":"date","format":"dd/MM/yyyy"}'/></td></tr>
                         </table>
                     </div>
-                    <div style="text-align: right;">
-                        <div style="text-align: center; margin: 20px 0;">
-                            <p style="font-weight: bold; color: #2c3e50; margin: 0;">SIMPLE WAY GLOBAL IMPORT &amp; EXPORT</p>
-                        </div>
+
+                    <div style="text-align:right;">
                         <table>
-                            <tr>
-                                <td style="width: 110px;">
-                                    <strong>TIN Number:</strong>
-                                </td>
-                                <td>
-                                    <span t-esc="o.company_id.vat or 'N/A'"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>VAT Number:</strong>
-                                </td>
-                                <td>
-                                    <span t-esc="o.company_id.vat or 'N/A'"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>Location:</strong>
-                                </td>
-                                <td>
-                                    <span t-esc="o.company_id.city or ''"/>, <span t-esc="o.company_id.country_id.name or 'Ethiopia'"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>Email:</strong>
-                                </td>
-                                <td>
-                                    <span t-esc="o.company_id.email or 'info@ethiotradeglobal.com'"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>Tel:</strong>
-                                </td>
-                                <td>
-                                    <span t-esc="o.company_id.phone or '+251911640551/+251900505599'"/>
-                                </td>
-                            </tr>
+                            <tr><td style="width:110px;"><strong>TIN Number:</strong></td><td><span t-esc="o.company_id.vat or 'N/A'"/></td></tr>
+                            <tr><td><strong>VAT Number:</strong></td><td><span t-esc="o.company_id.vat or 'N/A'"/></td></tr>
+                            <tr><td><strong>Location:</strong></td><td><span t-esc="o.company_id.city or ''"/>, Ethiopia</td></tr>
+                            <tr><td><strong>Email:</strong></td><td><span t-esc="o.company_id.email or 'info@ethiotradeglobal.com'"/></td></tr>
+                            <tr><td><strong>Tel:</strong></td><td><span t-esc="o.company_id.phone or '+251911640551 / +251900505599'"/></td></tr>
                         </table>
                     </div>
                 </div>
-                <!-- ==================== CUSTOMER & BILLING ==================== -->
-                <div style="display: flex; margin-bottom: 25px; justify-content: space-between; font-size: 12px;">
-                    <div style="flex: 1; padding-right: 15px;">
-                        <h3 style="font-size: 14px; color: #2c3e50; margin-bottom: 8px;">Customer Details</h3>
-                        <table>
-                            <tr>
-                                <td style="width: 80px;">
-                                    <strong>Customer:</strong>
-                                </td>
-                                <td>
-                                    <span t-esc="o.partner_id.name or 'N/A'"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>Email:</strong>
-                                </td>
-                                <td>
-                                    <span t-esc="o.partner_id.email or 'N/A'"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>Tel:</strong>
-                                </td>
-                                <td>
-                                    <span t-esc="o.partner_id.phone or 'N/A'"/>
-                                </td>
-                            </tr>
-                        </table>
+
+                <!-- Customer + Billing Address -->
+                <div style="display:flex; justify-content:space-between; margin-bottom:30px; font-size:12px;">
+                    <div style="flex:1; padding-right:25px;">
+                        <h3 style="color:#294a7f; margin-bottom:10px; font-size:14px;">Customer Details</h3>
+                        <strong>Customer:</strong> <span t-esc="o.partner_id.name"/><br/>
+                        <strong>Email:</strong> <span t-esc="o.partner_id.email or 'N/A'"/><br/>
+                        <strong>Tel:</strong> <span t-esc="o.partner_id.phone or 'N/A'"/>
                     </div>
-                    <div style="flex: 1; padding-left: 15px;">
-                        <h3 style="font-size: 14px; color: #2c3e50; margin-bottom: 8px; text-align: right;">Billing Address</h3>
-                        <table style="text-align: right;">
-                            <tr>
-                                <td style="width: 100px;">
-                                    <strong>Address:</strong>
-                                </td>
-                                <td>
-                                    <span t-esc="o.partner_id.street or 'N/A'"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>VAT Reg. No:</strong>
-                                </td>
-                                <td>
-                                    <span t-esc="o.partner_id.vat or 'N/A'"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>TIN Number:</strong>
-                                </td>
-                                <td>
-                                    <span t-esc="o.partner_id.vat or 'N/A'"/>
-                                </td>
-                            </tr>
-                        </table>
+                    <div style="flex:1; text-align:right;">
+                        <h3 style="color:#294a7f; margin-bottom:10px; font-size:14px;">Billing Address</h3>
+                        <span t-esc="o.partner_invoice_id.street or o.partner_id.street or 'N/A'"/><br/>
+                        <span t-esc="o.partner_invoice_id.city or o.partner_id.city or ''"/>, 
+                        <span t-esc="o.partner_invoice_id.country_id.name or ''"/><br/>
+                        <strong>VAT/TIN:</strong> <span t-esc="o.partner_id.vat or 'N/A'"/>
                     </div>
                 </div>
-                <!-- ==================== LINE ITEMS ==================== -->
-                <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 11px; border: 1px solid #dee2e6;">
-                    <thead style="background: #294a7f; color: white;">
+
+                <!-- Items Table – DARK BLUE header -->
+                <table style="width:100%; border-collapse:collapse; margin:35px 0; font-size:11px; border:1px solid #ddd;">
+                    <thead style="background:#294a7f !important; color:white;">
                         <tr>
-                            <th style="padding: 10px 6px; text-align: center;">#</th>
-                            <th style="padding: 10px 6px; text-align: left;">Item Name</th>
-                            <th style="padding: 10px 6px; text-align: center;">Qty</th>
-                            <th style="padding: 10px 6px; text-align: right;">Unit Price</th>
-                            <th style="padding: 10px 6px; text-align: center;">Tax</th>
-                            <th style="padding: 10px 6px; text-align: right;">Amount</th>
+                            <th style="padding:12px 8px; text-align:center;">#</th>
+                            <th style="padding:12px 8px;">Item Name</th>
+                            <th style="padding:12px 8px; text-align:center;">Qty</th>
+                            <th style="padding:12px 8px; text-align:right;">Unit Price</th>
+                            <th style="padding:12px 8px; text-align:center;">Tax</th>
+                            <th style="padding:12px 8px; text-align:right;">Amount</th>
                         </tr>
                     </thead>
                     <tbody>
                         <t t-foreach="o.invoice_line_ids" t-as="line">
-                            <tr style="border-bottom: 1px solid #eee;">
-                                <td style="padding: 8px 6px; text-align: center;">
-                                    <t t-esc="line_index + 1"/>
-                                </td>
-                                <td style="padding: 8px 6px; white-space: pre-wrap;">
-                                    <span t-field="line.name"/>
-                                </td>
-                                <td style="padding: 8px 6px; text-align: center;">
-                                    <span t-field="line.quantity"/>
-                                </td>
-                                <td style="padding: 8px 6px; text-align: right;">
-                                    <span t-field="line.price_unit" t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
-                                </td>
-                                <td style="padding: 8px 6px; text-align: center;">
-                                    <t t-if="line.tax_ids">
-                                        <t t-esc="', '.join([tax.name for tax in line.tax_ids])"/>
-                                    </t>
+                            <tr style="border-bottom:1px solid #eee;">
+                                <td style="padding:10px 8px; text-align:center;"><t t-esc="line_index + 1"/></td>
+                                <td style="padding:10px 8px;"><span t-field="line.name"/></td>
+                                <td style="padding:10px 8px; text-align:center;"><span t-field="line.quantity"/></td>
+                                <td style="padding:10px 8px; text-align:right;"><span t-field="line.price_unit" t-options='{"widget":"monetary","display_currency":o.currency_id}'/></td>
+                                <td style="padding:10px 8px; text-align:center;">
+                                    <t t-if="line.tax_ids"><t t-esc="', '.join([t.name for t in line.tax_ids])"/></t>
                                     <t t-else="">-</t>
                                 </td>
-                                <td style="padding: 8px 6px; text-align: right;">
-                                    <span t-field="line.price_subtotal" t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
-                                </td>
+                                <td style="padding:10px 8px; text-align:right;"><span t-field="line.price_subtotal" t-options='{"widget":"monetary","display_currency":o.currency_id}'/></td>
                             </tr>
                         </t>
                     </tbody>
                 </table>
-                <!-- ==================== TOTALS + SIGNATURES ON LEFT ==================== -->
-                <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
-                    <!-- Left: Signatures -->
-                    <div style="width: 48%; font-size: 11px; line-height: 1.5;">
-                        <p style="margin: 0 0 15px;">
-                            <strong>Prepared by:</strong>
-                            <br/>
-                            Samuel Tadesse
-                            <br/>
-                            <span style="color: #666;">Sales &amp; Operations Officer</span>
-                        </p>
-                        <p style="margin: 0;">
-                            <strong>Approved By:</strong>
-                            <br/>
-                            Meron Hailu
-                            <br/>
-                            <span style="color: #666;">Finance &amp; Compliance Manager</span>
-                        </p>
+
+                <!-- Signature + Total -->
+                <div style="display:flex; justify-content:space-between; margin-top:50px;">
+                    <div style="width:48%; font-size:11px;">
+                        <p style="margin:0 0 25px;"><strong>Prepared by:</strong><br/>Samuel Tadesse<br/>Sales &amp; Operations Officer</p>
+                        <p style="margin:0;"><strong>Approved By:</strong><br/>Meron Hailu<br/>Finance &amp; Compliance Manager</p>
                     </div>
-                    <!-- Right: Totals -->
-                    <div style="width: 48%;">
-                        <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+                    <div style="width:48%;">
+                        <table style="width:100%; font-size:13px;">
+                            <tr><td><strong>Untaxed Amount:</strong></td><td style="text-align:right;"><span t-field="o.amount_untaxed" t-options='{"widget":"monetary","display_currency":o.currency_id}'/></td></tr>
+                            <tr><td><strong>Tax:</strong></td><td style="text-align:right;"><span t-field="o.amount_tax" t-options='{"widget":"monetary","display_currency":o.currency_id}'/></td></tr>
+                            <tr><td><strong>Discount:</strong></td><td style="text-align:right;"><span t-esc="o.amount_total - (o.amount_untaxed + o.amount_tax)" t-options='{"widget":"monetary","display_currency":o.currency_id}'/></td></tr>
                             <tr>
-                                <td style="padding: 6px 0;">
-                                    <strong>Untaxed Amount:</strong>
-                                </td>
-                                <td style="padding: 6px 0; text-align: right;">
-                                    <span t-field="o.amount_untaxed" t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
-                                </td>
-                            </tr>
-                            <t t-set="subtotal" t-value="o.amount_untaxed + o.amount_tax"/>
-                            <tr>
-                                <td style="padding: 6px 0;">
-                                    <strong>Subtotal:</strong>
-                                </td>
-                                <td style="padding: 6px 0; text-align: right;">
-                                    <span t-esc="subtotal" t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
-                                </td>
-                            </tr>
-                            <t t-set="discount" t-value="o.amount_total - subtotal"/>
-                            <tr>
-                                <td style="padding: 6px 0;">
-                                    <strong>Discount:</strong>
-                                </td>
-                                <td style="padding: 6px 0; text-align: right;">
-                                    <span t-esc="discount" t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" style="background:#294a7f; color:white; padding:12px; font-size:16px; font-weight:bold; text-align:center;">
-                                    <strong>Total: <span t-field="o.amount_total" t-options='{"widget":"monetary","display_currency":o.currency_id}'/></strong>
+                                <td colspan="2" style="background:#294a7f; color:white; padding:15px; font-size:18px; font-weight:bold; text-align:center;">
+                                    Total: <span t-field="o.amount_total" t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
                                 </td>
                             </tr>
                         </table>
                     </div>
                 </div>
-                <!-- ==================== FOOTER ==================== -->
-                <div style="text-align: center; margin-top: 40px; padding-top: 15px; border-top: 1px solid #294a7f; font-size: 10px; color: #555;">
-                    <p style="margin: 3px 0;">ALEM GEBRE BUILDING 08 FLOOR GERJI MEBRATHAILE, ADDIS ABEBA, ETHIOPIA</p>
-                    <p style="margin: 3px 0;">TEL: +251911640551 / +251900505599</p>
-                </div>
+
             </div>
         </xpath>
     </template>
