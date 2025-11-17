@@ -21,6 +21,7 @@ exec odoo \
     --db_port="$DATABASE_PORT" \
     --db_user="$DATABASE_USER" \
     --db_password="$DATABASE_PASSWORD" \
+    --http-port="$PORT" \
     --proxy-mode \
     --without-demo=all \
     --db-filter="$DATABASE_NAME" \
