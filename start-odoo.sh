@@ -4,9 +4,13 @@ set -e
 echo "=== Odoo Startup ==="
 echo "Database: $DATABASE_NAME @ $DATABASE_HOST:$DATABASE_PORT"
 
-# Start Odoo with EXPLICIT database parameters
+# Check what addons directories exist
+echo "Checking available addons directories..."
+find / -name "*addons*" -type d 2>/dev/null | head -10
+
+# Start Odoo with the correct addons path
 exec odoo \
-    --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/mnt/custom-addons \
+    --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/custom-addons \
     --database="$DATABASE_NAME" \
     --db_host="$DATABASE_HOST" \
     --db_port="$DATABASE_PORT" \
