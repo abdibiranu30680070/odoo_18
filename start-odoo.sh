@@ -10,7 +10,7 @@ find / -name "*addons*" -type d 2>/dev/null | head -10
 
 # Start Odoo with the correct addons path
 exec odoo \
-    --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/custom-addons \
+    --addons-path=/usr/lib/python3/dist-packages/odoo/addons 
     --database="$DATABASE_NAME" \
     --db_host="$DATABASE_HOST" \
     --db_port="$DATABASE_PORT" \
