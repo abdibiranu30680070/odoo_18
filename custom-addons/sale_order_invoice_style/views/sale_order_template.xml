@@ -5,9 +5,7 @@
         <xpath expr="//div[contains(@t-attf-class, 'header')]" position="replace">
             <div class="header" style="padding:0; min-height:70px;">
                 <!-- Left Logo -->
-                <img t-if="company.logo"
-                     t-att-src="image_data_uri(company.logo)"
-                     style="height:55px; float:left; margin-right:20px;"/>
+              
                 <img t-else=""
                      t-att-src="'/sale_order_invoice_style/static/src/img/logo.png'"
                      style="height:55px; float:left; margin-right:20px;"/>
