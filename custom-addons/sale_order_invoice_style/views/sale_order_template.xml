@@ -1,13 +1,54 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+    <template id="custom_external_layout" inherit_id="web.external_layout_standard" name="Custom SW Header">
+        <!-- Replace HEADER -->
+        <xpath expr="//div[contains(@t-attf-class, 'header')]" position="replace">
+            <div class="header" style="padding:0; min-height:70px;">
+                <!-- Left Logo -->
+                <img t-if="company.logo"
+                     t-att-src="image_data_uri(company.logo)"
+                     style="height:55px; float:left; margin-right:20px;"/>
+                <img t-else=""
+                     t-att-src="'/sale_order_invoice_style/static/src/img/logo.png'"
+                     style="height:55px; float:left; margin-right:20px;"/>
+                <!-- Center Title -->
+                <div style="text-align:center; margin:0 70px;">
+                    <h4 style="margin:0; font-size:13px; color:#555; font-weight:normal;">
+                        አስማች እና ላክ
+                    </h4>
+                    <h1 style="margin:5px 0 0; font-size:22px; font-weight:bold; color:#007bff;">
+                        SIMPLE WAY GLOBAL IMPORT &amp; EXPORT
+                    </h1>
+                </div>
+                <!-- Right Logo -->
+                <img t-att-src="'/sale_order_invoice_style/static/src/img/logo.png'"
+                     style="height:55px; float:right; margin-left:20px;"/>
+                <div style="clear:both; border-bottom:3px solid #007bff; margin-top:15px;"></div>
+            </div>
+        </xpath>
+        <!-- Replace FOOTER -->
+        <xpath expr="//div[contains(@t-attf-class, 'footer')]" position="replace">
+            <div class="custom_footer text-center" style="border-top:1px solid black;padding-top:10px;">
+                <div>
+                    <strong>
+                        <t t-if="company.name">
+                            <t t-esc="company.name"/>
+                        </t>
+                        <t t-else="">SIMPLE WAY GLOBAL IMPORT &amp; EXPORT</t>
+                    </strong>
+                    <p>Page <span class="page"/> / <span class="topage"/></p>
+                </div>
+                <p>ALEM GEBRE BUILDING 08 FLOOR GERJI MEBRATHAILE, ADDIS ABEBA, ETHIOPIA</p>
+                <p>TEL: +251911640551 / +251900505599</p>
+            </div>
+        </xpath>
+    </template>
     <template id="template_sale_order">
         <t t-foreach="docs" t-as="o">
             <t t-call="web.html_container">
-                <t t-call="web.external_layout">
+                <t t-call="custom_external_layout">
                     <div class="page"
                          style="font-family: Arial, sans-serif; max-width: 210mm; margin: 0 auto; padding: 20px; background: #fff;">
-
-
                         <!-- ==================== INVOICE & COMPANY DETAILS ==================== -->
                         <div style="display: flex; justify-content: space-between; margin-bottom: 25px; font-size: 12px;">
                             <div>
@@ -91,7 +132,6 @@
                                             <span t-esc="o.company_id.country_id.name or 'Ethiopia'"/>
                                         </td>
                                     </tr>
-
                                     <tr>
                                         <td>
                                             <strong>Email:</strong>
@@ -111,7 +151,6 @@
                                 </table>
                             </div>
                         </div>
-
                         <!-- ==================== CUSTOMER & BILLING ==================== -->
                         <div style="display: flex; margin-bottom: 25px; justify-content: space-between; font-size: 12px;">
                             <div style="flex: 1; padding-right: 15px;">
@@ -175,7 +214,6 @@
                                 </table>
                             </div>
                         </div>
-
                         <!-- ==================== LINE ITEMS ==================== -->
                         <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 11px; border: 1px solid #dee2e6;">
                             <thead style="background: #294a7f; color: white;">
@@ -218,7 +256,6 @@
                                 </t>
                             </tbody>
                         </table>
-
                         <!-- ==================== TOTALS + SIGNATURES ON LEFT ==================== -->
                         <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
                             <!-- Left: Signatures -->
@@ -238,7 +275,6 @@
                                     <span style="color: #666;">Finance &amp; Compliance Manager</span>
                                 </p>
                             </div>
-
                             <!-- Right: Totals -->
                             <div style="width: 48%;">
                                 <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
