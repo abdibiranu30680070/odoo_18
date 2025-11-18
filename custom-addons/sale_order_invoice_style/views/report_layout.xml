@@ -2,12 +2,17 @@
 <odoo>
     <template id="custom_external_layout" inherit_id="web.external_layout_standard" name="Custom SW Header">
 
-        <!-- Replace the header section -->
-        <xpath expr="//div[contains(@t-attf-class, 'header o_company_')]" position="replace">
+        <!-- Replace the header -->
+        <xpath expr="//div[@class='header']" position="replace">
             <div class="header" style="padding:0; min-height:70px;">
                 <!-- Left Logo -->
-                <img t-if="company and company.logo" t-att-src="image_data_uri(company.logo)" alt="Company Logo" style="height:55px; float:left; margin-right:20px;"/>
-                <img t-else="" t-att-src="'/sale_order_invoice_style/static/src/img/logo.png'" alt="SW Logo" style="height:55px; float:left; margin-right:20px;"/>
+                <img t-if="company and company.logo"
+                     t-att-src="image_data_uri(company.logo)"
+                     style="height:55px; float:left; margin-right:20px;"/>
+
+                <img t-else=""
+                     t-att-src="'/sale_order_invoice_style/static/src/img/logo.png'"
+                     style="height:55px; float:left; margin-right:20px;"/>
 
                 <!-- Center Title -->
                 <div style="text-align:center; margin:0 70px;">
@@ -20,37 +25,30 @@
                 </div>
 
                 <!-- Right Logo -->
-                <img t-att-src="'/sale_order_invoice_style/static/src/img/logo.png'" alt="SW Logo" style="height:55px; float:right; margin-left:20px;"/>
+                <img t-att-src="'/sale_order_invoice_style/static/src/img/logo.png'"
+                     style="height:55px; float:right; margin-left:20px;"/>
 
                 <div style="clear:both; border-bottom:3px solid #007bff; margin-top:15px;"/>
             </div>
         </xpath>
 
-        <!-- Replace the footer section -->
-        <xpath expr="//div[contains(@t-attf-class, 'footer o_company_')]" position="replace">
+        <!-- Replace the footer -->
+        <xpath expr="//div[@class='footer']" position="replace">
             <div class="custom_footer text-center" style="border-top: 1px solid black; padding-top: 10px;">
-                <!-- Company Name and Page Number -->
-                <div class="row">
-                    <div class="col-12">
-                        <strong>
-                            <t t-if="company and company.name">
-                                <t t-esc="company.name"/>
-                            </t>
-                            <t t-else="">
-                                SIMPLE WAY GLOBAL IMPORT &amp; EXPORT
-                            </t>
-                        </strong>
-                        <p>Page: <span class="page"/> / <span class="topage"/></p>
-                    </div>
+                <div>
+                    <strong>
+                        <t t-if="company and company.name">
+                            <t t-esc="company.name"/>
+                        </t>
+                        <t t-else="">SIMPLE WAY GLOBAL IMPORT &amp; EXPORT</t>
+                    </strong>
+                    <p>Page: <span class="page"/> / <span class="topage"/></p>
                 </div>
-                <!-- Company Address -->
-                <div class="row">
-                    <div class="col-12">
-                        <p>ALEM GEBRE BUILDING 08 FLOOR GERJI MEBRATHAILE, ADDIS ABEBA, ETHIOPIA</p>
-                        <p>TEL: +251911640551 / +251900505599</p>
-                    </div>
-                </div>
+
+                <p>ALEM GEBRE BUILDING 08 FLOOR GERJI MEBRATHAILE, ADDIS ABEBA, ETHIOPIA</p>
+                <p>TEL: +251911640551 / +251900505599</p>
             </div>
         </xpath>
+
     </template>
 </odoo>
