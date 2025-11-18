@@ -7,29 +7,6 @@
                     <div class="page"
                          style="font-family: Arial, sans-serif; max-width: 210mm; margin: 0 auto; padding: 20px; background: #fff;">
 
-                        <!-- ==================== HEADER WITH LOGO LEFT & RIGHT ==================== -->
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 3px solid #294a7f; padding-bottom: 15px;">
-                            <!-- Left Logo -->
-                            <img t-att-src="'/your_module_name/static/src/img/logo.png'"
-                                 alt="SW Logo"
-                                 style="height: 55px;"/>
-
-                            <!-- Center: Amharic + English Title -->
-                            <div style="text-align: center; flex: 1;">
-                                <h4 style="margin: 0; font-size: 13px; color: #555; font-weight: normal;">
-                                    አስማች እና ላክ
-                                </h4>
-                                <h1 style="margin: 5px 0 0; font-size: 22px; font-weight: bold; color: #294a7f;">
-                                    SIMPLE WAY GLOBAL IMPORT &amp; EXPORT
-                                </h1>
-                            </div>
-
-                            <!-- Right Logo -->
-                            <img t-att-src="'/your_module_name/static/src/img/logo.png'"
-                                 alt="SW Logo"
-                                 style="height: 55px;"/>
-                        </div>
-
 
                         <!-- ==================== INVOICE & COMPANY DETAILS ==================== -->
                         <div style="display: flex; justify-content: space-between; margin-bottom: 25px; font-size: 12px;">
@@ -306,14 +283,6 @@
                                     </tr>
                                 </table>
                             </div>
-                        </div>
-
-                        <!-- ==================== FOOTER ==================== -->
-                        <div style="text-align: center; margin-top: 40px; padding-top: 15px; border-top: 1px solid #294a7f; font-size: 10px; color: #555;">
-                            <p style="margin: 3px 0;">ALEM GEBRE BUILDING 08 FLOOR GERJI MEBRATHAILE, ADDIS ABEBA,
-                                ETHIOPIA
-                            </p>
-                            <p style="margin: 3px 0;">TEL: +251911640551 / +251900505599</p>
                         </div>
                     </div>
                 </t>
