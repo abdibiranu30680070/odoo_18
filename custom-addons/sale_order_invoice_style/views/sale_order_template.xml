@@ -46,7 +46,7 @@
     <template id="template_sale_order">
         <t t-foreach="docs" t-as="o">
             <t t-call="web.html_container">
-                <t t-call="custom_external_layout">
+                <t t-call="sale_order_invoice_style.custom_external_layout">
                     <div class="page"
                          style="font-family: Arial, sans-serif; max-width: 210mm; margin: 0 auto; padding: 20px; background: #fff;">
                         <!-- ==================== INVOICE & COMPANY DETAILS ==================== -->
