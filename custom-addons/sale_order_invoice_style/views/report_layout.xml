@@ -2,11 +2,11 @@
 <odoo>
     <template id="custom_external_layout" inherit_id="web.external_layout_standard" name="Custom SW Header">
 
-        <!-- Replace the header -->
-        <xpath expr="//div[@class='header']" position="replace">
+        <!-- Replace HEADER -->
+        <xpath expr="//div[contains(@t-attf-class, 'header')]" position="replace">
             <div class="header" style="padding:0; min-height:70px;">
                 <!-- Left Logo -->
-                <img t-if="company and company.logo"
+                <img t-if="company.logo"
                      t-att-src="image_data_uri(company.logo)"
                      style="height:55px; float:left; margin-right:20px;"/>
 
@@ -28,21 +28,21 @@
                 <img t-att-src="'/sale_order_invoice_style/static/src/img/logo.png'"
                      style="height:55px; float:right; margin-left:20px;"/>
 
-                <div style="clear:both; border-bottom:3px solid #007bff; margin-top:15px;"/>
+                <div style="clear:both; border-bottom:3px solid #007bff; margin-top:15px;"></div>
             </div>
         </xpath>
 
-        <!-- Replace the footer -->
-        <xpath expr="//div[@class='footer']" position="replace">
-            <div class="custom_footer text-center" style="border-top: 1px solid black; padding-top: 10px;">
+        <!-- Replace FOOTER -->
+        <xpath expr="//div[contains(@t-attf-class, 'footer')]" position="replace">
+            <div class="custom_footer text-center" style="border-top:1px solid black;padding-top:10px;">
                 <div>
                     <strong>
-                        <t t-if="company and company.name">
+                        <t t-if="company.name">
                             <t t-esc="company.name"/>
                         </t>
                         <t t-else="">SIMPLE WAY GLOBAL IMPORT &amp; EXPORT</t>
                     </strong>
-                    <p>Page: <span class="page"/> / <span class="topage"/></p>
+                    <p>Page <span class="page"/> / <span class="topage"/></p>
                 </div>
 
                 <p>ALEM GEBRE BUILDING 08 FLOOR GERJI MEBRATHAILE, ADDIS ABEBA, ETHIOPIA</p>
