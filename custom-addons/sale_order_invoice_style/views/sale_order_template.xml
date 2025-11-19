@@ -49,372 +49,371 @@
                 <t t-call="web.external_layout">
 
                     <!-- WRAPPER WITH WATERMARK BACKGROUND -->
-                    <div class="no-border watermark-container position: relative;">
+                    <div class="no-border watermark-container">
                         <!-- WATERMARK BACKGROUND LOGO -->
+
                         <div class="watermark-background"
                              t-if="o.company_id.logo">
                             <img t-att-src="image_data_uri(o.company_id.logo)"
                                  style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.1; max-width: 700px; height: auto;"/>
+                        </div>
+                        <div class="page-content"
+                             style="font-family: Arial, sans-serif; max-width: 210mm; margin: 0 auto; padding: 20px; background: transparent;">
 
-
-                            <div class="page-content"
-                                 style="font-family: Arial, sans-serif; max-width: 210mm; margin: 0 auto; padding: 20px; background: transparent;">
-
-                                <!-- ==================== INVOICE & COMPANY TABLE ==================== -->
-                                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-                                    <tr>
-                                        <!-- Invoice Header -->
-                                        <td style="width: 45%; vertical-align: top;">
-                                            <table style="width: 100%;">
-                                                <tr>
-                                                    <td colspan="2" style="padding: 5px 0;">
-                                                        <strong style="font-size: 14px; color: #2c3e50;">Invoice
-                                                        </strong>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td style="width: 100px;">
-                                                        <strong>Invoice No:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span t-field="o.name"/>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        <strong>Order No:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span t-field="o.client_order_ref"/>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        <strong>Custom (PO):</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span t-field="o.client_order_ref"/>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        <strong>Invoice Date:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span t-field="o.date_order"
-                                                              t-options='{"widget":"date","format":"dd/MM/yyyy"}'/>
-                                                    </td>
-                                                </tr>
-
-                                                <tr t-if="o.commitment_date">
-                                                    <td>
-                                                        <strong>Due Date:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span t-field="o.commitment_date"
-                                                              t-options='{"widget":"date","format":"dd/MM/yyyy"}'/>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-
-                                        <td style="width: 10%;"></td>
-
-                                        <!-- Company Header -->
-                                        <td style="width: 45%; vertical-align: top;">
-                                            <table style="width: 100%;">
-                                                <tr>
-                                                    <td colspan="2" style="text-align: right;">
-                                                        <strong style="font-size: 14px; color: #2c3e50;">SIMPLE WAY
-                                                            GLOBAL
-                                                            IMPORT &amp; EXPORT
-                                                        </strong>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td style="width: 100px;">
-                                                        <strong>TIN Number:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span t-esc="o.company_id.vat or 'N/A'"/>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        <strong>VAT Number:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span t-esc="o.company_id.vat or 'N/A'"/>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        <strong>Location:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span t-esc="o.company_id.city or ''"/>,
-                                                        <span t-esc="o.company_id.country_id.name or 'Ethiopia'"/>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        <strong>Email:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span t-esc="o.company_id.email or 'info@ethiotradeglobal.com'"/>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        <strong>Tel:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span t-esc="o.company_id.phone or '+251911640551/+251900505599'"/>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </table>
-
-                                <!-- ==================== CUSTOMER & BILLING TABLE ==================== -->
-                                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-                                    <tr>
-                                        <!-- Customer -->
-                                        <td style="width: 45%; vertical-align: top;">
-                                            <table style="width: 100%;">
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <strong style="font-size: 14px; color: #2c3e50;">Customer
-                                                            Details
-                                                        </strong>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td style="width: 80px;">
-                                                        <strong>Customer:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span t-esc="o.partner_id.name or 'N/A'"/>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        <strong>Email:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span t-esc="o.partner_id.email or 'N/A'"/>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        <strong>Tel:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span t-esc="o.partner_id.phone or 'N/A'"/>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-
-                                        <td style="width: 10%;"></td>
-
-                                        <!-- Billing -->
-                                        <td style="width: 45%; vertical-align: top;">
-                                            <table style="width: 100%;">
-                                                <tr>
-                                                    <td colspan="2" style="text-align: right;">
-                                                        <strong style="font-size: 14px; color: #2c3e50;">Billing Address
-                                                        </strong>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td style="width: 100px;">
-                                                        <strong>Address:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span t-esc="o.partner_shipping_id.street or o.partner_id.street or 'N/A'"/>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        <strong>VAT Reg. No:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span t-esc="o.partner_id.vat or 'N/A'"/>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>
-                                                        <strong>TIN Number:</strong>
-                                                    </td>
-                                                    <td>
-                                                        <span t-esc="o.partner_id.vat or 'N/A'"/>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </table>
-
-                                <!-- ==================== LINE ITEMS ==================== -->
-                                <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 11px;">
-                                    <thead style="background: #294a7f; color: white;">
-                                        <tr>
-                                            <th style="padding: 10px 6px; text-align: center;">#</th>
-                                            <th style="padding: 10px 6px; text-align: left;">Item Name</th>
-                                            <th style="padding: 10px 6px; text-align: center;">Qty</th>
-                                            <th style="padding: 10px 6px; text-align: right;">Unit Price</th>
-                                            <th style="padding: 10px 6px; text-align: center;">Tax</th>
-                                            <th style="padding: 10px 6px; text-align: right;">Amount</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        <t t-foreach="enumerate(o.order_line)" t-as="line">
+                            <!-- ==================== INVOICE & COMPANY TABLE ==================== -->
+                            <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                                <tr>
+                                    <!-- Invoice Header -->
+                                    <td style="width: 45%; vertical-align: top;">
+                                        <table style="width: 100%;">
                                             <tr>
-                                                <!-- Index -->
-                                                <td style="padding: 8px; text-align: center;">
-                                                    <t t-esc="line[0] + 1"/>
+                                                <td colspan="2" style="padding: 5px 0;">
+                                                    <strong style="font-size: 14px; color: #2c3e50;">Invoice
+                                                    </strong>
                                                 </td>
+                                            </tr>
 
-                                                <!-- Item Name -->
-                                                <td style="padding: 8px; white-space: pre-wrap;">
-                                                    <span t-field="line[1].name"/>
+                                            <tr>
+                                                <td style="width: 100px;">
+                                                    <strong>Invoice No:</strong>
                                                 </td>
-
-                                                <!-- Qty -->
-                                                <td style="padding: 8px; text-align: center;">
-                                                    <span t-field="line[1].product_uom_qty"/>
+                                                <td>
+                                                    <span t-field="o.name"/>
                                                 </td>
+                                            </tr>
 
-                                                <!-- Unit Price -->
-                                                <td style="padding: 8px; text-align: right;">
-                                                    <span t-field="line[1].price_unit"
-                                                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                            <tr>
+                                                <td>
+                                                    <strong>Order No:</strong>
                                                 </td>
-
-                                                <!-- Tax -->
-                                                <td style="padding: 8px; text-align: center;">
-                                                    <t t-if="line[1].tax_id">
-                                                        <t t-esc="', '.join([tax.name for tax in line[1].tax_id])"/>
-                                                    </t>
-                                                    <t t-else="">-</t>
+                                                <td>
+                                                    <span t-field="o.client_order_ref"/>
                                                 </td>
+                                            </tr>
 
-                                                <!-- Amount -->
-                                                <td style="padding: 8px; text-align: right;">
-                                                    <span t-field="line[1].price_subtotal"
+                                            <tr>
+                                                <td>
+                                                    <strong>Custom (PO):</strong>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.client_order_ref"/>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <strong>Invoice Date:</strong>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.date_order"
+                                                          t-options='{"widget":"date","format":"dd/MM/yyyy"}'/>
+                                                </td>
+                                            </tr>
+
+                                            <tr t-if="o.commitment_date">
+                                                <td>
+                                                    <strong>Due Date:</strong>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.commitment_date"
+                                                          t-options='{"widget":"date","format":"dd/MM/yyyy"}'/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+
+                                    <td style="width: 10%;"></td>
+
+                                    <!-- Company Header -->
+                                    <td style="width: 45%; vertical-align: top;">
+                                        <table style="width: 100%;">
+                                            <tr>
+                                                <td colspan="2" style="text-align: right;">
+                                                    <strong style="font-size: 14px; color: #2c3e50;">SIMPLE WAY
+                                                        GLOBAL
+                                                        IMPORT &amp; EXPORT
+                                                    </strong>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td style="width: 100px;">
+                                                    <strong>TIN Number:</strong>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="o.company_id.vat or 'N/A'"/>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <strong>VAT Number:</strong>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="o.company_id.vat or 'N/A'"/>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <strong>Location:</strong>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="o.company_id.city or ''"/>,
+                                                    <span t-esc="o.company_id.country_id.name or 'Ethiopia'"/>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <strong>Email:</strong>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="o.company_id.email or 'info@ethiotradeglobal.com'"/>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <strong>Tel:</strong>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="o.company_id.phone or '+251911640551/+251900505599'"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- ==================== CUSTOMER & BILLING TABLE ==================== -->
+                            <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                                <tr>
+                                    <!-- Customer -->
+                                    <td style="width: 45%; vertical-align: top;">
+                                        <table style="width: 100%;">
+                                            <tr>
+                                                <td colspan="2">
+                                                    <strong style="font-size: 14px; color: #2c3e50;">Customer
+                                                        Details
+                                                    </strong>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td style="width: 80px;">
+                                                    <strong>Customer:</strong>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="o.partner_id.name or 'N/A'"/>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <strong>Email:</strong>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="o.partner_id.email or 'N/A'"/>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <strong>Tel:</strong>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="o.partner_id.phone or 'N/A'"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+
+                                    <td style="width: 10%;"></td>
+
+                                    <!-- Billing -->
+                                    <td style="width: 45%; vertical-align: top;">
+                                        <table style="width: 100%;">
+                                            <tr>
+                                                <td colspan="2" style="text-align: right;">
+                                                    <strong style="font-size: 14px; color: #2c3e50;">Billing Address
+                                                    </strong>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td style="width: 100px;">
+                                                    <strong>Address:</strong>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="o.partner_shipping_id.street or o.partner_id.street or 'N/A'"/>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <strong>VAT Reg. No:</strong>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="o.partner_id.vat or 'N/A'"/>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <strong>TIN Number:</strong>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="o.partner_id.vat or 'N/A'"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- ==================== LINE ITEMS ==================== -->
+                            <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 11px;">
+                                <thead style="background: #294a7f; color: white;">
+                                    <tr>
+                                        <th style="padding: 10px 6px; text-align: center;">#</th>
+                                        <th style="padding: 10px 6px; text-align: left;">Item Name</th>
+                                        <th style="padding: 10px 6px; text-align: center;">Qty</th>
+                                        <th style="padding: 10px 6px; text-align: right;">Unit Price</th>
+                                        <th style="padding: 10px 6px; text-align: center;">Tax</th>
+                                        <th style="padding: 10px 6px; text-align: right;">Amount</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <t t-foreach="enumerate(o.order_line)" t-as="line">
+                                        <tr>
+                                            <!-- Index -->
+                                            <td style="padding: 8px; text-align: center;">
+                                                <t t-esc="line[0] + 1"/>
+                                            </td>
+
+                                            <!-- Item Name -->
+                                            <td style="padding: 8px; white-space: pre-wrap;">
+                                                <span t-field="line[1].name"/>
+                                            </td>
+
+                                            <!-- Qty -->
+                                            <td style="padding: 8px; text-align: center;">
+                                                <span t-field="line[1].product_uom_qty"/>
+                                            </td>
+
+                                            <!-- Unit Price -->
+                                            <td style="padding: 8px; text-align: right;">
+                                                <span t-field="line[1].price_unit"
+                                                      t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                            </td>
+
+                                            <!-- Tax -->
+                                            <td style="padding: 8px; text-align: center;">
+                                                <t t-if="line[1].tax_id">
+                                                    <t t-esc="', '.join([tax.name for tax in line[1].tax_id])"/>
+                                                </t>
+                                                <t t-else="">-</t>
+                                            </td>
+
+                                            <!-- Amount -->
+                                            <td style="padding: 8px; text-align: right;">
+                                                <span t-field="line[1].price_subtotal"
+                                                      t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+
+                            <!-- ==================== SIGNATURES & TOTALS ==================== -->
+                            <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
+                                <tr>
+                                    <!-- Signatures -->
+                                    <td style="width: 45%; vertical-align: top;">
+                                        <table style="width: 100%;">
+                                            <tr>
+                                                <td>
+                                                    <strong>Prepared by:</strong>
+                                                    <br/>
+                                                    Samuel Tadesse
+                                                    <br/>
+                                                    <span style="color: #666;">Sales &amp; Operations Officer</span>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <strong>Approved By:</strong>
+                                                    <br/>
+                                                    Meron Hailu
+                                                    <br/>
+                                                    <span style="color: #666;">Finance &amp; Compliance Manager
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+
+                                    <td style="width: 10%;"></td>
+
+                                    <!-- Totals -->
+                                    <td style="width: 45%; vertical-align: top;">
+                                        <table style="width: 100%;">
+                                            <tr>
+                                                <td>
+                                                    <strong>Untaxed Amount:</strong>
+                                                </td>
+                                                <td style="text-align: right;">
+                                                    <span t-field="o.amount_untaxed"
                                                           t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
                                                 </td>
                                             </tr>
-                                        </t>
-                                    </tbody>
-                                </table>
 
-                                <!-- ==================== SIGNATURES & TOTALS ==================== -->
-                                <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
-                                    <tr>
-                                        <!-- Signatures -->
-                                        <td style="width: 45%; vertical-align: top;">
-                                            <table style="width: 100%;">
-                                                <tr>
-                                                    <td>
-                                                        <strong>Prepared by:</strong>
-                                                        <br/>
-                                                        Samuel Tadesse
-                                                        <br/>
-                                                        <span style="color: #666;">Sales &amp; Operations Officer</span>
-                                                    </td>
-                                                </tr>
+                                            <t t-set="subtotal" t-value="o.amount_untaxed + o.amount_tax"/>
+                                            <tr>
+                                                <td>
+                                                    <strong>Subtotal:</strong>
+                                                </td>
+                                                <td style="text-align: right;">
+                                                    <span t-esc="subtotal"
+                                                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                                </td>
+                                            </tr>
 
-                                                <tr>
-                                                    <td>
-                                                        <strong>Approved By:</strong>
-                                                        <br/>
-                                                        Meron Hailu
-                                                        <br/>
-                                                        <span style="color: #666;">Finance &amp; Compliance Manager
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
+                                            <t t-set="discount" t-value="subtotal - o.amount_total"/>
+                                            <tr>
+                                                <td>
+                                                    <strong>Discount:</strong>
+                                                </td>
+                                                <td style="text-align: right;">
+                                                    <span t-esc="discount"
+                                                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                                </td>
+                                            </tr>
 
-                                        <td style="width: 10%;"></td>
-
-                                        <!-- Totals -->
-                                        <td style="width: 45%; vertical-align: top;">
-                                            <table style="width: 100%;">
-                                                <tr>
-                                                    <td>
-                                                        <strong>Untaxed Amount:</strong>
-                                                    </td>
-                                                    <td style="text-align: right;">
-                                                        <span t-field="o.amount_untaxed"
-                                                              t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
-                                                    </td>
-                                                </tr>
-
-                                                <t t-set="subtotal" t-value="o.amount_untaxed + o.amount_tax"/>
-                                                <tr>
-                                                    <td>
-                                                        <strong>Subtotal:</strong>
-                                                    </td>
-                                                    <td style="text-align: right;">
-                                                        <span t-esc="subtotal"
-                                                              t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
-                                                    </td>
-                                                </tr>
-
-                                                <t t-set="discount" t-value="subtotal - o.amount_total"/>
-                                                <tr>
-                                                    <td>
-                                                        <strong>Discount:</strong>
-                                                    </td>
-                                                    <td style="text-align: right;">
-                                                        <span t-esc="discount"
-                                                              t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td colspan="2" style="background:#294a7f; color:white; padding:12px;
+                                            <tr>
+                                                <td colspan="2" style="background:#294a7f; color:white; padding:12px;
                                             font-size:16px; font-weight:bold; text-align:center;">
-                                                        Total:
-                                                        <span t-field="o.amount_total"
-                                                              t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </table>
-
-                                <!-- ==================== FOOTER ==================== -->
-                                <div style="text-align: center; margin-top: 40px; font-size: 10px; color: #555;">
-                                    <p>ALEM GEBRE BUILDING 08 FLOOR GERJI MEBRATHAILE, ADDIS ABEBA, ETHIOPIA</p>
-                                    <p>TEL: +251911640551 / +251900505599</p>
-                                </div>
-
+                                                    Total:
+                                                    <span t-field="o.amount_total"
+                                                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            <!-- ==================== FOOTER ==================== -->
+                            <div style="text-align: center; margin-top: 40px; font-size: 10px; color: #555;">
+                                <p>ALEM GEBRE BUILDING 08 FLOOR GERJI MEBRATHAILE, ADDIS ABEBA, ETHIOPIA</p>
+                                <p>TEL: +251911640551 / +251900505599</p>
                             </div>
+
                         </div>
                     </div>
+
                 </t>
             </t>
         </t>
